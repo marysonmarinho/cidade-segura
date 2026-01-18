@@ -1,0 +1,214 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    color: #e0e0e0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.map-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.intro-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(68, 68, 68, 0.95), rgba(51, 51, 51, 0.95));
+    padding: 40px;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #FFCC33;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.intro-text h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.intro-text h2 span {
+    color: #FFCC33;
+}
+
+.intro-text p {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.login-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, #FFCC33, #FFD700);
+    color: #333333;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn:hover {
+    background: linear-gradient(90deg, #FFD700, #FFCC33);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.floating-stats-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, #FFCC33, #FFD700);
+    color: #333333;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.floating-stats-btn:hover {
+    background: linear-gradient(90deg, #FFD700, #FFCC33);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.stats-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(68, 68, 68, 0.95), rgba(51, 51, 51, 0.95));
+    padding: 20px;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    overflow-y: auto;
+    transform: translateX(100%); /* Oculto por padrão, fora da tela à direita */
+    transition: transform 0.3s ease; /* Animação suave */
+}
+
+.stats-panel.show {
+    transform: translateX(0); /* Aparece quando a classe 'show' for adicionada */
+}
+
+.stats-panel h3 {
+    color: #FFCC33;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stats-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, rgba(85, 85, 85, 0.8), rgba(68, 68, 68, 0.8));
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid #FFCC33;
+}
+
+.stats-card h4 {
+    color: #FFCC33;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .map-container {
+        height: 300px; /* Mapa menor */
+        width: 100%;
+    }
+    
+    .intro-panel {
+        position: static;
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .stats-panel {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+    }
+    
+    .stats-cards {
+        display: grid;
+        grid-template-columns: 1fr; /* Uma coluna */
+        gap: 10px;
+    }
+    
+    .stats-card canvas {
+        max-width: 100%;
+        height: 200px; /* Gráficos menores */
+    }
+    
+    .floating-stats-btn {
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Estilos para o marcador pulsante */
+.leaflet-marker-icon.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px #FFCC33;
+    }
+    50% {
+        transform: scale(1.5);
+        box-shadow: 0 0 15px #FFCC33;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px #FFCC33;
+    }
+}

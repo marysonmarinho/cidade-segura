@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="home-styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Cidade Segura</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">  <!-- Se usou .ico -->
+    <!-- Ou: <link rel="icon" type="image/png" href="logosite.png">  <!-- Se usou PNG -->
+    <!-- Scripts do Firebase adicionados -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <div class="map-container" id="map"></div>
+    
+    <aside class="intro-panel">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cidade Segura
+        </div>
+        <div class="intro-text">
+            <h2><span>Encontre crimes</span></h2>
+            <h2>em seu Bairro</h2>
+            <p>
+                Vamos começar a informar?
+            </p>
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+    </aside>
+    
+    <button id="toggle-stats" class="floating-stats-btn">
+        <i class="fas fa-chart-bar"></i> Estatística Geral
+    </button>
+    
+    <aside class="stats-panel" id="stats-panel">
+        <h3><i class="fas fa-chart-bar"></i> Estatísticas</h3>
+        <div class="stats-cards">
+            <div class="stats-card">
+                <h4>Estatísticas por Bairro</h4>
+                <canvas id="chart-bairro"></canvas>
+            </div>
+            <div class="stats-card">
+                <h4>Modalidade de Crime</h4>
+                <canvas id="chart-modalidade"></canvas>
+            </div>
+            <div class="stats-card">
+                <h4>Objetos Mais Roubados</h4>
+                <canvas id="chart-objetos"></canvas>
+            </div>
+            <div class="stats-card">
+                <h4>Crimes Mais Cometidos</h4>
+                <canvas id="chart-crimes"></canvas>
+            </div>
+            <div class="stats-card">
+                <h4>Horários de Incidência</h4>
+                <canvas id="chart-horarios"></canvas>
+            </div>
+        </div>
+    </aside>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="home-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+/** Variables - colors **/
+:root {
+    /* Light */
+    --color-light-50: #f8fafc;
+
+    /* Dark */
+    --color-dark-50: #797984;
+    --color-dark-100: #312d37;
+    --color-dark-900: #000;
+
+    /* Purple */
+    --color-purple-50: #ed903a;
+    --color-purple-100: #f7b955;
+    --color-purple-200: #efb946;
+
+    /* Gradient */
+    --color-gradient: linear-gradient(90deg, var(--color-purple-50), var(--color-purple-100), var(--color-purple-200));
+}
+
+/* General */
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#containerlogin {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-gradient);
+}
+
+#login_form, #register_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    margin: auto;
+    background-color: var(--color-light-50);
+    padding: 20px 40px;
+    border-radius: 10px;
+    gap: 20px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.336);
+    animation: dark-to-light-background 0.3s ease-in-out;
+    width: 600px;
+}
+
+#register_form {
+    display: none;
+}
+
+/* Form Header */
+#form_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+#form_header h1 {
+    font-size: 40px;
+    color: black;
+    position: relative;
+}
+
+#form_header h1::before {
+    position: absolute;
+    content: '';
+    width: 40%;
+    height: 3px;
+    background-color: var(--color-purple-50);
+    bottom: 10px;
+    border-radius: 5px;
+}
+
+#mode_icon, #mode_icon_register {
+    cursor: pointer;
+    color: black;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+/* Inputs */
+#inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-box>label {
+    font-size: 16px;
+    color: var(--color-dark-50);
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 3px;
+    border-bottom: 1px solid var(--color-purple-50);
+    cursor: text;
+}
+
+.input-field i {
+    font-size: 18px;
+    cursor: text;
+    color: var(--color-dark-900);
+} 
+
+.input-field input {
+    border: none;
+    width: 500px;
+    background-color: transparent;
+    font-size: 18px;
+    padding: 0px 5px;
+}
+
+.input-field input:focus {
+    outline: none;
+}
+
+/* Login Button */
+#login_button, #register_button {
+    border: none;
+    background: var(--color-gradient);
+    padding: 7px;
+    border-radius: 3px;
+    color: var(--color-light-50);
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    width: 500px;
+}
+
+#login_button:hover, #register_button:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Mode */
+.dark #login_form, .dark #register_form {
+    color: var(--color-light-50);
+    background-color: var(--color-dark-100);
+    animation: light-to-dark-background 0.3s ease-in-out;
+}
+
+.dark #login_form .input-field input,
+.dark #login_form .input-field i,
+.dark #register_form .input-field input,
+.dark #register_form .input-field i {
+    color: var(--color-light-50);
+}
+
+.dark #form_header h1 {
+    color: var(--color-light-50);
+}
+
+.dark #mode_icon, .dark #mode_icon_register {
+    color: var(--color-light-50);
+}
+
+@keyframes dark-to-light-background {
+    0% {
+        background-color: var(--color-dark-100);
+    }
+    100% {
+        background-color: var(--color-light-50);
+    }
+}
+
+@keyframes light-to-dark-background {
+    0% {
+        background-color: var(--color-light-50);
+    }
+    100% {
+        background-color: var(--color-dark-100); 
+    }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    #containerlogin {
+        padding: 10px;
+    }
+    
+    #login_form, #register_form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .input-box {
+        margin-bottom: 15px;
+    }
+    
+    .input-field {
+        flex-direction: column;
+    }
+    
+    .input-field i {
+        margin-bottom: 5px;
+    }
+    
+    #mode_icon, #mode_icon_register {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+}

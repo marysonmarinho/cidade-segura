@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segurança Pública</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="main-content" class="main-content">
+            <header class="header">
+                <h2>Segurança Pública</h2>
+                <div class="header-actions">
+                    <a href="https://wa.me/5511999999999?text=Preciso%20de%20ajuda%20policial%20urgente.%20Localização%20aproximada:%20[Insira%20sua%20localização%20ou%20endereço]." target="_blank" class="alert-button">
+                        <i class="fas fa-exclamation-triangle"></i> Polícia
+                    </a>
+                    <div class="menu-icon" id="menu-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <nav class="nav-menu" id="nav-menu">
+                    <ul>
+                        <li><button id="enable-notifications"><i class="fas fa-bell"></i> Ativar Notificações</button></li>
+                        <li><a href="#" id="profile-link"><i class="fas fa-user"></i> Perfil</a></li>
+                        <li><a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <div class="main-container">
+                <div class="map-section">
+                    <h2>Relatar Ocorrência</h2>
+                    <div id="map" class="map-container"></div>
+                </div>
+                
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <h3><i class="fas fa-chart-bar"></i> Estatísticas</h3>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <label for="crime-filter"><i class="fas fa-filter"></i> Filtrar por Tipo:</label>
+                        <select id="crime-filter">
+                            <option value="all">Todos</option>
+                            <option value="roubo">Roubo</option>
+                            <option value="furto">Furto</option>
+                            <option value="sequestro">Sequestro</option>
+                            <option value="maria-da-penha">Maria da Penha</option>
+                            <option value="racismo">Racismo</option>
+                            <option value="homicidio">Homicídio</option>
+                            <option value="estupro">Estupro</option>
+                            <option value="trafico-drogas">Tráfico de Drogas</option>
+                            <option value="violencia-domestica">Violência Doméstica</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        
+                        <label for="date-filter"><i class="fas fa-calendar"></i> Filtrar por Período:</label>
+                        <input type="date" id="start-date" placeholder="Data Inicial">
+                        <input type="date" id="end-date" placeholder="Data Final">
+                        <button id="apply-date-filter">Aplicar Filtro</button>
+                    </div>
+                    
+                    <div class="stats-panel" id="stats-panel">
+                        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando...
+                        </div>
+                        <div class="stats-cards">
+                            <div class="stats-card">
+                                <h4>Estatísticas por Bairro</h4>
+                                <canvas id="chart-bairro"></canvas>
+                            </div>
+                            <div class="stats-card">
+                                <h4>Modalidade de Crime</h4>
+                                <canvas id="chart-modalidade"></canvas>
+                            </div>
+                            <div class="stats-card">
+                                <h4>Objetos Mais Roubados</h4>
+                                <canvas id="chart-objetos"></canvas>
+                            </div>
+                            <div class="stats-card">
+                                <h4>Crimes Mais Cometidos</h4>
+                                <canvas id="chart-crimes"></canvas>
+                            </div>
+                            <div class="stats-card">
+                                <h4>Horários de Incidência</h4>
+                                <canvas id="chart-horarios"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+        
+        <div id="modal" class="modal">
+            <h2>Relatar Ocorrência</h2>
+            <form id="occurrence-form">
+                <input type="date" id="data" required>
+                <input type="time" id="horario" required>
+                <input type="text" id="bairro" placeholder="Bairro" required>
+                <select id="tipo-crime" required>
+                    <option value="">Selecione o tipo de crime</option>
+                    <option value="roubo">Roubo</option>
+                    <option value="furto">Furto</option>
+                    <option value="sequestro">Sequestro</option>
+                    <option value="maria-da-penha">Maria da Penha (Violência Doméstica)</option>
+                    <option value="racismo">Racismo</option>
+                    <option value="homicidio">Homicídio</option>
+                    <option value="estupro">Estupro</option>
+                    <option value="trafico-drogas">Tráfico de Drogas</option>
+                    <option value="violencia-domestica">Violência Doméstica</option>
+                    <option value="outro">Outro</option>
+                </select>
+                <input type="text" id="objetos" placeholder="Objetos roubados/furtados" required>
+                <textarea id="descricao" placeholder="Descrição da ocorrência" required></textarea>
+                <button type="submit">Salvar</button>
+                <button type="button" id="close-modal">Fechar</button>
+            </form>
+        </div>
+        
+        <div id="profile-modal" class="modal">
+            <h2>Perfil</h2>
+            <div class="profile-content">
+                <div class="profile-photo">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-info">
+                    <p><strong>Nome:</strong> <span id="profile-nome"></span></p>
+                    <p><strong>E-mail:</strong> <span id="profile-email"></span></p>
+                    <p><strong>Idade:</strong> <span id="profile-idade"></span> anos</p>
+                    <p><strong>Data de Nascimento:</strong> <span id="profile-data-nascimento"></span></p>
+                </div>
+            </div>
+            <button id="close-profile-modal">Fechar</button>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

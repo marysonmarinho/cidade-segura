@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="login-styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Login - Cidade Segura</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Scripts do Firebase primeiro -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="login-script.js"></script>
+</head>
+<body>
+    <div id="containerlogin">
+        <div id="login_form">
+            <div id="form_header">
+                <h1>Login</h1>
+                <i class="fas fa-moon" id="mode_icon"></i>
+            </div>
+            
+            <form id="login-form">
+                <div id="inputs">
+                    <div class="input-box">
+                        <label for="username">E-mail</label>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" placeholder="Digite seu e-mail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="password">Senha</label>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Digite sua senha" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="login_button" type="submit">Entrar</button>
+            </form>
+            <p>Não tem conta? <button type="button" id="show-register">Cadastre-se</button></p>
+            <!-- Novo link para esqueceu senha -->
+            <p><button type="button" id="forgot-password">Esqueceu a senha?</button></p>
+        </div>
+        
+        <div id="register_form" class="login-form">
+            <div id="form_header">
+                <h1>Cadastro</h1>
+                <i class="fas fa-moon" id="mode_icon_register"></i>
+            </div>
+            
+            <form>
+                <div id="inputs">
+                    <div class="input-box">
+                        <label for="nome">Nome Completo</label>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="email">E-mail</label>
+                        <div class="input-field">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="data-nascimento">Data de Nascimento</label>
+                        <div class="input-field">
+                            <i class="fas fa-calendar"></i>
+                            <input type="date" id="data-nascimento" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="new-password">Senha</label>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="new-password" placeholder="Digite sua senha" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="register_button" type="submit">Cadastrar</button>
+            </form>
+            <p>Já tem conta? <button type="button" id="show-login">Voltar para Login</button></p>
+        </div>
+    </div>
+</body>
+</html>
